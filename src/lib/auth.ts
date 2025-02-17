@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Invalid credentials");
         }
 
-        const isValidPassword = compareHash(
+        const isValidPassword = await compareHash(
           credentials?.password as string,
           user.password
         );
