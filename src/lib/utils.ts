@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -10,4 +11,8 @@ export const formatPrice = (price: number) => {
     style: "currency",
     currency: "TZS",
   }).format(price);
+};
+
+export const compareHash = async (password: string, hashedPassword: string) => {
+  return await bcrypt.compare(password, hashedPassword);
 };

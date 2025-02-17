@@ -1,9 +1,9 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import { prisma } from "./connect-db";
-import bcrypt from "bcryptjs";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { compareHash } from "./utils";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Invalid credentials");
         }
 
-        const isValidPassword = await bcrypt.compare(
+        const isValidPassword = compareHash(
           credentials?.password as string,
           user.password
         );
