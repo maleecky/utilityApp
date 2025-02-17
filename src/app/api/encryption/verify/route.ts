@@ -1,0 +1,12 @@
+import bcrypt from "bcryptjs";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(req: NextRequest) {
+  const { password, hashedPassword } = await req.json();
+  try {
+    const response = await bcrypt.compare(password, hashedPassword);
+    return NextResponse.json(response);
+  } catch (error) {
+    if (error) throw new Error(error as string);
+  }
+}
