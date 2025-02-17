@@ -2,8 +2,6 @@
 import { prisma } from "./connect-db";
 import { signIn } from "./auth";
 
-import { argonHash } from "./utils";
-
 export const RegisterUser = async (data: {
   name: string;
   email: string;
@@ -11,7 +9,23 @@ export const RegisterUser = async (data: {
 }) => {
   try {
     if (!data.password) throw new Error("Invalid Credentials");
-    data.password = await argonHash(data.password);
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/api/encryption/hash`,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password: data.password,
+        }),
+      }
+    );
+
+    data.password = await response.json();
+
     await prisma.user.create({
       data,
     });

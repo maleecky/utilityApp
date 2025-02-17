@@ -1,4 +1,3 @@
-import argon2 from "argon2";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -11,11 +10,4 @@ export const formatPrice = (price: number) => {
     style: "currency",
     currency: "TZS",
   }).format(price);
-};
-
-export const compareHash = async (password: string, hashedPassword: string) => {
-  return await argon2.verify(hashedPassword, password);
-};
-export const argonHash = async (password: string) => {
-  return await argon2.hash(password);
 };

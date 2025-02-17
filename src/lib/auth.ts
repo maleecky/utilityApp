@@ -3,7 +3,6 @@ import NextAuth from "next-auth";
 import { prisma } from "./connect-db";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { compareHash } from "./utils";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -31,10 +30,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Invalid credentials");
         }
 
-        const isValidPassword = await compareHash(
-          credentials?.password as string,
-          user.password
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_URL}/api/encryption/verify`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              password: credentials.password,
+
+              hashedPassword: user.password,
+            }),
+          }
         );
+
+        const isValidPassword = await response.json();
 
         if (!isValidPassword) {
           throw new Error("Invalid credentials");
