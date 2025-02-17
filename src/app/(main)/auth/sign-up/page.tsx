@@ -39,7 +39,9 @@ export default function SignUpPage() {
 
       router.push("/auth/sign-in");
     } catch (error) {
-      if (error) throw new Error("An error occurred while registering user");
+      form.setError("password", {
+        message: error as string,
+      });
     }
   };
 
