@@ -20,6 +20,7 @@
     "argon2": "^0.41.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "crypto-browserify": "^3.12.1",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
     "next-auth": "^5.0.0-beta.25",
@@ -27,6 +28,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-phone-number-input": "^3.4.11",
+    "stream-browserify": "^3.0.0",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.2"
