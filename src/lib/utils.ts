@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import argon2 from "argon2";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -14,5 +14,5 @@ export const formatPrice = (price: number) => {
 };
 
 export const compareHash = async (password: string, hashedPassword: string) => {
-  return await bcrypt.compare(password, hashedPassword);
+  return await argon2.verify(hashedPassword, password);
 };

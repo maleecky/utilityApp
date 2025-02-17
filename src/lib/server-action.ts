@@ -1,5 +1,5 @@
 "use server";
-import bcrypt from "bcryptjs";
+import argon2 from "argon2";
 import { prisma } from "./connect-db";
 import { signIn } from "./auth";
 
@@ -10,7 +10,7 @@ export const RegisterUser = async (data: {
 }) => {
   try {
     if (!data.password) throw new Error("Invalid Credentials");
-    data.password = await bcrypt.hash(data.password, 10);
+    data.password = await argon2.hash(data.password);
     await prisma.user.create({
       data,
     });
