@@ -1,7 +1,7 @@
 "use server";
-import argon2 from "argon2";
 import { prisma } from "./connect-db";
 import { signIn } from "./auth";
+import { argonHash } from "./utils";
 
 export const RegisterUser = async (data: {
   name: string;
@@ -10,7 +10,7 @@ export const RegisterUser = async (data: {
 }) => {
   try {
     if (!data.password) throw new Error("Invalid Credentials");
-    data.password = await argon2.hash(data.password);
+    data.password = await argonHash(data.password);
     await prisma.user.create({
       data,
     });

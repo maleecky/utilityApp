@@ -16,3 +16,6 @@ export const formatPrice = (price: number) => {
 export const compareHash = async (password: string, hashedPassword: string) => {
   return await argon2.verify(hashedPassword, password);
 };
+export const argonHash = async (password: string) => {
+  return await argon2.hash(password);
+};
