@@ -11,7 +11,7 @@ export const RegisterUser = async (data: {
     if (!data.password) throw new Error("Invalid Credentials");
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/api/encryption/hash`,
+      `${process.env.BASE_URL}/api/encryption/hash`,
       {
         method: "POST",
 

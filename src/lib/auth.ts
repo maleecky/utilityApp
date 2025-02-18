@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_URL}/api/encryption/verify`,
+          `${process.env.BASE_URL}/api/encryption/verify`,
           {
             method: "POST",
             headers: {
